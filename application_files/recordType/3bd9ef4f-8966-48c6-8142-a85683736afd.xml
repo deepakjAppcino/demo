@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>54db3de3-ed46-4547-a63e-e8408593244a</versionUuid>
+    <recordType a:uuid="3bd9ef4f-8966-48c6-8142-a85683736afd" name="Organisation Management">
+        <a:pluralName>Organisation Managements</a:pluralName>
+        <a:description>Contains All List For Organisation Management Application</a:description>
+        <a:urlStub>XtFS9Q</a:urlStub>
+        <a:source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:DataStoreEntity" a:uuid="8d0c0a2c-1e75-421a-9f9b-b23877c7ca8f@_a-0000dff6-d901-8000-06a9-01ef9001ef90_219070"/>
+        <a:listViewTemplateExpr>#"SYSTEM_SYSRULES_recordGridLayoutColumns"(
+  pageSize: 50,
+  defaultSort: #"SYSTEM_SYSRULES_sortInfo"(
+    field: "OrgName",
+    ascending: fn!true()
+  ),
+  columns: {
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Org Name",
+      field: "OrgName",
+      component: #"SYSTEM_SYSRULES_recordGrid_linkField"(
+        links: #"SYSTEM_SYSRULES_recordLink"(
+          label: rf!OrgName,
+          recordType: rp!type,
+          identifier: rp!id
+        )
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Org Department",
+      field: "OrgDepartment",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayValue: rf!OrgDepartment,
+        align: null
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Org Instruction",
+      field: "OrgInstruction",
+      component: #"SYSTEM_SYSRULES_recordGrid_textField"(
+        displayValue: rf!OrgInstruction,
+        align: null
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Org Logo",
+      field: "OrgLogo",
+      component: #"SYSTEM_SYSRULES_recordGrid_integerField"(
+        displayValue: rf!OrgLogo,
+        align: "RIGHT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Org Zip",
+      field: "OrgZip",
+      component: #"SYSTEM_SYSRULES_recordGrid_integerField"(
+        displayValue: rf!OrgZip,
+        align: "RIGHT"
+      )
+    ),
+    #"SYSTEM_SYSRULES_gridLayoutColumn"(
+      label: "Org Id",
+      field: "OrgId",
+      component: #"SYSTEM_SYSRULES_recordGrid_integerField"(
+        displayValue: rf!OrgId,
+        align: "RIGHT"
+      )
+    )
+  }
+)</a:listViewTemplateExpr>
+        <a:detailViewCfg>
+            <a:nameExpr>="Summary"</a:nameExpr>
+            <a:uiExpr>#"_a-0000dff6-d901-8000-06a9-01ef9001ef90_226684"(rf!OrgId)</a:uiExpr>
+            <a:visibilityExpr>=true()</a:visibilityExpr>
+            <a:urlStub>summary</a:urlStub>
+            <a:headerExpr></a:headerExpr>
+        </a:detailViewCfg>
+        <a:isSystem>false</a:isSystem>
+        <a:dataSrcExpr></a:dataSrcExpr>
+        <a:facetsListExpr></a:facetsListExpr>
+        <a:titleExpr></a:titleExpr>
+        <a:defaultFiltersExpr></a:defaultFiltersExpr>
+        <a:layoutType>GRID</a:layoutType>
+        <a:security>16383</a:security>
+        <a:hideLatestNews>false</a:hideLatestNews>
+        <a:isExportable>true</a:isExportable>
+    </recordType>
+    <roleMap/>
+    <history>
+        <historyInfo versionUuid="54db3de3-ed46-4547-a63e-e8408593244a"/>
+    </history>
+</recordTypeHaul>

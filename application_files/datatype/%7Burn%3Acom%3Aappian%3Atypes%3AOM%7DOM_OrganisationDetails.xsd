@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:com:appian:types:OM"
+  xmlns:tns="urn:com:appian:types:OM" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="OM_OrganisationDetails">
+    <xsd:annotation>
+      <xsd:appinfo source="appian.jpa">@Table(name="OM_OrganisationDetails")</xsd:appinfo>
+      <xsd:documentation><![CDATA[Hold values for Company details]]></xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="OrgId" type="xsd:int">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Id @GeneratedValue @Column(name="OrgId")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrgName" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="OrgName")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrgDepartment" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="OrgDepartment")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrgLogo" type="xsd:int">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="OrgLogo")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrgInstruction" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="OrgInstruction")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrgAddress" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="OrgAddress")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrgCity" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="OrgCity")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrgState" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="OrgState")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrgZip" type="xsd:int">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="OrgZip")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

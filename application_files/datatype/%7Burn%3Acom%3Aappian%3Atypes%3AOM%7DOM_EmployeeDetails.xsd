@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:com:appian:types:OM"
+  xmlns:tns="urn:com:appian:types:OM" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="OM_EmployeeDetails">
+    <xsd:annotation>
+      <xsd:appinfo source="appian.jpa">@Table(name="OM_EmployeeDetails")</xsd:appinfo>
+      <xsd:documentation><![CDATA[Hold values for Company details]]></xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="EmpId" type="xsd:int">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Id @GeneratedValue @Column(name="EmpId")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrgId" type="xsd:int">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="OrgId")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EmpName" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="EmpName")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EmpDesignation" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="EmpDesignation")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EmpAge" type="xsd:int">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="EmpAge")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EmpSalary" type="xsd:int">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="EmpSalary")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

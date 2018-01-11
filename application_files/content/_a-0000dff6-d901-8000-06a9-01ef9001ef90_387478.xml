@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000dff6-d901-8000-06a9-01ef9001ef90_392260</versionUuid>
+    <rule>
+        <name>dfdfd</name>
+        <uuid>_a-0000dff6-d901-8000-06a9-01ef9001ef90_387478</uuid>
+        <description>dfdfdfd</description>
+        <parentUuid>_a-0000dff6-d901-8000-06a9-01ef9001ef90_218881</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>=load(
+  local!employees: {
+      { id: 1, firstName: "John" , lastName: "Smith" , department: "Engineering" , title: "Director" , phoneNumber: "800-123-4567" , startDate: today()-360 },
+      { id: 2, firstName: "Michael" , lastName: "Johnson" , department: "Finance" , title: "Analyst" , phoneNumber: "866-987-6543" , startDate: today()-360 },
+      { id: 3, firstName: "Mary", lastName: "Reed" , department: "Engineering" , title: "Software Engineer" , phoneNumber: "789-456-0123" , startDate: today()-240 },
+  },
+  #"SYSTEM_SYSRULES_formLayout_v1"(
+    label: "SAIL Example: Add,Update, or Remove Employee Data",
+    contents: {
+      #"SYSTEM_SYSRULES_gridLayout"(
+        totalCount: count(local!employees),
+        headerCells: {
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "First Name" ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Last Name" ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Department" ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Title" ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Phone Number" ),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Start Date", align: "RIGHT" ),
+          /* For the "Remove" column */
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "" )
+        },
+        /* Only needed when some columns need to be narrow */
+        columnConfigs: {
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(width: "DISTRIBUTE", weight:3 ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(width: "DISTRIBUTE", weight:3 ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(width: "DISTRIBUTE", weight:3 ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(width: "DISTRIBUTE", weight:3 ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(width: "DISTRIBUTE", weight:3 ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(width: "DISTRIBUTE", weight:2 ),
+          #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(width: "ICON")
+        },
+        rows: #"SYSTEM_SYSRULES_forEach"(
+          items: local!employees,
+          expression: #"SYSTEM_SYSRULES_gridRowLayout"(
+            contents: {
+              /* For the First Name Column*/
+              #"SYSTEM_SYSRULES_textField"(
+                /* Labels are not visible in grid cells but are necessary to meet accessibility requirements */
+                label: "first name " &amp; fv!index,
+                value: fv!item.firstName,
+                saveInto: fv!item.firstName,
+                required: true
+              ),
+              /* For the Last Name Column*/
+              #"SYSTEM_SYSRULES_textField"(
+                label: "last name " &amp; fv!index,
+                value: fv!item.lastName,
+                saveInto: fv!item.lastName,
+                required:true
+              ),
+              /* For the Department Column*/
+              #"SYSTEM_SYSRULES_dropdownField"(
+                label: "department " &amp; fv!index,
+                placeholderLabel: "-- Select -- ",
+                choiceLabels: { "Corporate", "Engineering", "Finance", "Human Resources", "Professional Services", "Sales" },
+                choiceValues: { "Corporate", "Engineering", "Finance", "Human Resources", "Professional Services", "Sales" },
+                value: fv!item.department,
+                saveInto: fv!item.department,
+                required:true
+              ),
+              /* For the Title Column*/
+              #"SYSTEM_SYSRULES_textField"(
+                label: "title " &amp; fv!index,
+                value: fv!item.title,
+                saveInto: fv!item.title,
+                required:true
+              ),
+              /* For the Phone Number Column*/
+              #"SYSTEM_SYSRULES_textField"(
+                label: "phone number " &amp; fv!index,
+                placeholder:"123-456-7890",
+                value: fv!item.phoneNumber,
+                saveInto: fv!item.phoneNumber
+              ),
+              /* For the Start Date Column*/
+              #"SYSTEM_SYSRULES_dateField"(
+                label: "start date " &amp; fv!index,
+                value: fv!item.startDate,
+                saveInto: fv!item.startDate,
+                required:true,
+                align: "RIGHT"
+              ),
+              /* For the Removal Column*/
+              #"SYSTEM_SYSRULES_imageField_v1"(
+                label: "delete " &amp; fv!index,
+                images: #"SYSTEM_SYSRULES_documentImage"(
+                  document: #"SYSTEM_SYSRULES_iconIndicator"("REMOVE"),
+                  altText: "Remove Employee",
+                  caption: "Remove " &amp; fv!item.firstName &amp; " " &amp; fv!item.lastName,
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: fv!index,
+                    saveInto: {
+                      a!save(local!employees, remove(local!employees, save!value))
+                    }
+                  )
+                ),
+                size: "ICON"
+              )
+            },
+            id: fv!index
+          )
+        ),
+        addRowlink: #"SYSTEM_SYSRULES_dynamicLink"(
+          label: "Add Employee",
+          value: {
+            startDate: today() + 1
+          },
+          saveInto: {
+            a!save(local!employees, append(local!employees, save!value))
+          }
+        )
+      )
+    },
+    buttons: #"SYSTEM_SYSRULES_ButtonLayout"(
+      primaryButtons: #"SYSTEM_SYSRULES_ButtonWidgetSubmit"(
+        label: "Submit"
+      )
+    )
+  )
+)
+</definition>
+        <metadataExpr></metadataExpr>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000dff6-d901-8000-06a9-01ef9001ef90_392260"/>
+    </history>
+</contentHaul>

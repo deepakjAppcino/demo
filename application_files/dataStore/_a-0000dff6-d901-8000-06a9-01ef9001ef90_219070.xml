@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000dfff-8511-8000-06a9-01ef9001ef90_395072</versionUuid>
+    <dataStore>
+        <uuid>_a-0000dff6-d901-8000-06a9-01ef9001ef90_219070</uuid>
+        <name>OM_Data_Store</name>
+        <description>Storing the data</description>
+        <dataSourceKey>jdbc/SqlServerDS</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <autoUpdateSchema>false</autoUpdateSchema>
+        <entities>
+            <entity>
+                <uuid>8d0c0a2c-1e75-421a-9f9b-b23877c7ca8f</uuid>
+                <name>OM_OrganisationDetails</name>
+                <type>{urn:com:appian:types:OM}OM_OrganisationDetails</type>
+            </entity>
+            <entity>
+                <uuid>2513eeb1-3066-4aa9-beb5-25067936c5ce</uuid>
+                <name>OM_EmployeeDetails</name>
+                <type>{urn:com:appian:types:OM}OM_EmployeeDetails</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000dfff-8511-8000-06a9-01ef9001ef90_395072"/>
+    </history>
+</dataStoreHaul>
