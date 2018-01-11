@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e00c-16f9-8000-06a9-01ef9001ef90_526306</versionUuid>
+    <rule>
+        <name>OM_ER_Column_GENERATE</name>
+        <uuid>_a-0000e00c-16f9-8000-06a9-01ef9001ef90_526302</uuid>
+        <description>Expression Rule To Generate Column</description>
+        <parentUuid>_a-0000dff6-d901-8000-06a9-01ef9001ef90_392337</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  #"SYSTEM_SYSRULES_gridRowLayout"(
+    id: ri!indexVal,
+    contents: {
+      #"SYSTEM_SYSRULES_textField"(
+        label: "Name " &amp; ri!indexVal ,
+        value: index(ri!employee[ri!indexVal], "EmpName" ,{}),
+        saveInto: {a!save( ri!employee[ri!indexVal].EmpName , save!value)},
+        required: true
+      ),
+      #"SYSTEM_SYSRULES_dropdownField"(
+        label: "Designation " &amp; ri!indexVal,
+        placeholderLabel: "--Select Profile--",
+        choiceLabels: {
+        "Human Resource",
+        "Development",
+        "QA",
+        "BA",
+        "DBA",
+        "Network Admin",
+        "Fresher",
+        "Staff"
+        },
+        choiceValues: {
+          "Human Resource",
+        "Development",
+        "QA",
+        "BA",
+        "DBA",
+        "Network Admin",
+        "Fresher",
+        "Staff"
+        },
+        value: index(
+          ri!employee[ri!indexVal],
+          "EmpDesignation",
+          {}
+        ),
+        saveInto: {
+          a!save(
+            ri!employee[ri!indexVal].EmpDesignation,
+             save!value
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_integerField"(
+        label: "Age " &amp; ri!indexVal ,
+        value: index(ri!employee[ri!indexVal], "EmpAge" ,{}),
+        saveInto: {a!save( ri!employee[ri!indexVal].EmpAge , save!value)},
+        required: true
+      ),
+      #"SYSTEM_SYSRULES_integerField"(
+        label: "Salary " &amp; ri!indexVal ,
+        value: index(ri!employee[ri!indexVal], "EmpSalary" ,{}),
+        saveInto: {a!save( ri!employee[ri!indexVal].EmpSalary , save!value)},
+        required: true
+      ),
+     #"SYSTEM_SYSRULES_imageField_v1"(
+       label: "delete " &amp; ri!indexVal,
+         size: "ICON",
+        images: #"SYSTEM_SYSRULES_documentImage"(
+          document: #"SYSTEM_SYSRULES_iconIndicator"(
+            "REMOVE"
+          ),
+          altText: "Remove Employee",
+          caption: "Remove " &amp; ri!employee[ri!indexVal].EmpName,
+           link:#"SYSTEM_SYSRULES_dynamicLink"(
+              value: ri!indexVal,
+               saveInto:{
+                 a!save(ri!employee , remove(ri!employee , save!value))
+                }
+           )
+         )
+          )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>employee</name>
+            <type>
+                <name>OM_EmployeeDetails?list</name>
+                <namespace>urn:com:appian:types:OM</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>indexVal</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users>
+                <userUuid>prafuls</userUuid>
+            </users>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e00c-16f9-8000-06a9-01ef9001ef90_526306"/>
+    </history>
+</contentHaul>

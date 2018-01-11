@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e00c-16f9-8000-06a9-01ef9001ef90_526322</versionUuid>
+    <rule>
+        <name>OM_Registration_Dummy</name>
+        <uuid>_a-0000e00c-16f9-8000-06a9-01ef9001ef90_526313</uuid>
+        <description>Dummy</description>
+        <parentUuid>_a-0000dff6-d901-8000-06a9-01ef9001ef90_218881</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_formLayout_v1"(
+  label: "Registration",
+  contents: {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: "Organisation Details",
+      contents: {
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_textField"(
+                  label: "Name",
+                  labelPosition: "ABOVE",
+                  value: index(
+                    ri!Details,
+                    "OrgName",
+                    {}
+                  ),
+                  saveInto: ri!Details.OrgName,
+                  refreshAfter: "UNFOCUS",
+                  required: true,
+                  validations: {}
+                ),
+                #"SYSTEM_SYSRULES_dropdownField"(
+                  label: "Department",
+                  labelPosition: "ABOVE",
+                  placeholderLabel: "--- Select Department ---",
+                  choiceLabels: {
+                    "Finance",
+                    "Human Resources",
+                    "Marketing",
+                    "Sales",
+                    "IT"
+                  },
+                  choiceValues: {
+                    "Finance",
+                    "Human Resources",
+                    "Marketing",
+                    "Sales",
+                    "IT"
+                  },
+                  value: index(
+                    ri!Details,
+                    "OrgDepartment",
+                    {}
+                  ),
+                  saveInto: ri!Details.OrgDepartment,
+                  required: true,
+                  validations: {}
+                ),
+                #"SYSTEM_SYSRULES_fileUploadField_v1"(
+                  label: "Organisation Logo",
+                  labelPosition: "ABOVE",
+                  instructions: "Please Use .png or .jpeg files",
+                  target: #"_a-0000dff6-d901-8000-06a9-01ef9001ef90_221307"[1],
+                  maxSelections: 1,
+                  value: index(
+                    ri!Details,
+                    "OrgLogo",
+                    {}
+                  ),
+                  saveInto: ri!Details.OrgLogo,
+                  required: TRUE
+                ),
+                #"SYSTEM_SYSRULES_textField"(
+                  label: "Special Instructions",
+                  labelPosition: "ABOVE",
+                  value: index(
+                    ri!Details,
+                    "OrgInstruction",
+                    {}
+                  ),
+                  /* The value parameter must be configured to display a value in the component */
+                  saveInto: ri!Details.OrgInstruction,
+                  refreshAfter: "UNFOCUS",
+                  required: true,
+                  validations: {}
+                )
+              }
+            )
+            
+          }
+        )
+      }
+    ),
+    #"SYSTEM_SYSRULES_boxLayout"(
+      label: "Employee Details",
+      style: "ACCENT",
+      contents: {
+        #"SYSTEM_SYSRULES_gridLayout"(
+          headerCells: {
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "Name"
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "Designation"
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "Age"
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: "Salary"
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(
+              label: ""
+            )
+          },
+          columnConfigs: {
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "DISTRIBUTE",
+              weight: 3
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "DISTRIBUTE",
+              weight: 3
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "DISTRIBUTE",
+              weight: 3
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "DISTRIBUTE",
+              weight: 3
+            ),
+            #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+              width: "ICON"
+            )
+          },
+          rows: {
+            #"SYSTEM_SYSRULES_applyComponents"(
+            function: #"_a-0000dff6-d901-8000-06a9-01ef9001ef90_392364"(
+              employee: ri!EmpDetails,
+              indexVal: _
+            ),
+            array: if(
+              or(
+                isnull(
+                  ri!EmpDetails
+                ),
+                count(
+                  ri!EmpDetails
+                ) &lt; 1
+              ),
+             {},
+           1+enumerate(
+                count(ri!EmpDetails)
+              )
+            )
+          )
+          },
+          addRowLink: #"SYSTEM_SYSRULES_dynamicLink"(
+            label: "Add New Employee",
+            value: {
+              Id: count(
+                ri!EmpDetails
+              ) + 1
+            },
+            saveInto: {
+              a!save(
+                ri!EmpDetails,
+                append(
+                  ri!EmpDetails,
+                  save!value
+                )
+              )
+            }
+          )
+        )
+      }
+    )
+  },
+  buttons: #"SYSTEM_SYSRULES_ButtonLayout"(
+    primaryButtons: {
+      #"SYSTEM_SYSRULES_ButtonWidgetSubmit"(
+        label: "Submit",
+        value: "Submit",
+        saveInto: ri!actionValue,
+        style: "PRIMARY"
+      )
+    },
+    secondaryButtons: {
+      #"SYSTEM_SYSRULES_ButtonWidgetSubmit"(
+        label: "Cancel",
+        value: "Cancel",
+        saveInto: ri!actionValue,
+        style: "NORMAL",
+        skipValidation: true
+      )
+    }
+  ),
+  validations: {}
+)</definition>
+        <namedTypedValue>
+            <name>actionValue</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Details</name>
+            <type>
+                <name>OM_OrganisationDetails</name>
+                <namespace>urn:com:appian:types:OM</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmpDetails</name>
+            <type>
+                <name>OM_EmployeeDetails?list</name>
+                <namespace>urn:com:appian:types:OM</namespace>
+            </type>
+        </namedTypedValue>
+        <metadataExpr></metadataExpr>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users>
+                <userUuid>prafuls</userUuid>
+            </users>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e00c-16f9-8000-06a9-01ef9001ef90_526322"/>
+    </history>
+</contentHaul>
